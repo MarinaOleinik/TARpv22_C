@@ -9,6 +9,17 @@ namespace TARpv22_C
 {
     public class Alamprog
     {
+
+        public KeyValuePair<Dictionary<string, string>, Dictionary<string, string>> Minufunktion(string file)
+        {
+            Dictionary<string, string> dic1= new Dictionary<string, string>();
+            Dictionary<string, string> dic2 = new Dictionary<string, string>();
+
+            return new KeyValuePair<Dictionary<string, string>, Dictionary<string, string>>(dic1,dic2);
+        }
+
+
+
         public static int Korruta(int arv1,int arv2)
         {
             return arv1 * arv2;

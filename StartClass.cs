@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,14 +12,152 @@ namespace TARpv22_C
     {
         public static void Main(string[] args)
         {
-            string nimi = "Python";
+            try
+            {
+                StreamWriter text = new StreamWriter(@"..\..\..\TextFile.txt", true);
+                Console.WriteLine("Sisesta maakonna nimetus: ");
+                string maakond = Console.ReadLine();
+                Console.WriteLine("Sisesta linna nimetus: ");
+                string linn = Console.ReadLine();
+                string lause = maakond+"-"+linn;
+                text.WriteLine(lause);
+                text.Close();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Viga failiga!");
+            }
+            try
+            {
+                StreamReader text = new StreamReader(@"..\..\..\TextFile.txt");
+                string laused=text.ReadToEnd();
+                text.Close();
+                Console.WriteLine("Failis on järgmine informatsion:\n");
+                Console.WriteLine(laused);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Viga failiga!");
+            }
+
+            List<string> list_failist = new List<string>();
+            try
+            {
+                foreach (string rida in File.ReadAllLines(@"..\..\..\TextFile.txt"))
+                {
+                    list_failist.Add(rida);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Viga failiga!");
+            }
+            
+            string key="";
+            string value="";
+            Dictionary<string, string> maakond_linn = new Dictionary<string, string>();
+            foreach (var rida in list_failist)
+            {
+                key = rida.Split('-')[0];//Harjumaa
+                value = rida.Split('-')[1];//Tallinn
+                maakond_linn.Add(key, value);
+            }
+            foreach (KeyValuePair<string, string> keyValue in maakond_linn)
+            {
+                Console.WriteLine(keyValue.Key + " pealinn on " + keyValue.Value);
+            }
+
+            ConsoleKeyInfo nupp = new ConsoleKeyInfo();
+            do
+            {
+                Console.WriteLine("Vajuta Backspace");
+                nupp = Console.ReadKey();
+            } while (nupp.Key != ConsoleKey.Backspace);
+            
+            
+            
+            /*Dictionary<int,string> dic = new Dictionary<int,string>(5);
+            dic.Add(1, "üks");
+            dic.Add(2, "kaks");
+            dic[3] = "kolm";
+            dic[4] = "neli";
+            dic[5] = "viis";
+            foreach (KeyValuePair<int,string> keyValue in dic)
+            {
+                Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
+            }
+
+            Dictionary<int,Inimene> õpilased= new Dictionary<int,Inimene>(3);
+            Inimene inimene = new Inimene();
+            inimene.Nimi = "Mati";
+            inimene.Vanus = 65;
+            Inimene inimene2 = new Inimene();
+            inimene2.Nimi = "Kati";
+            inimene2.Vanus = 35;
+            õpilased.Add(1, inimene);
+            õpilased.Add(2,inimene2);
+            õpilased.Add(3,new Inimene() { Nimi = "Marina", Vanus = 100 });
+            foreach (Inimene item in õpilased.Values)
+            {
+                Console.WriteLine(item.Nimi);
+            }
+
+            foreach (KeyValuePair<int,Inimene> item in õpilased)
+            {
+                Console.WriteLine(item.Key + ": " + item.Value.Nimi);
+            }*/
+
+            /*List<Inimene> list = new List<Inimene>();
+            Inimene inimene= new Inimene();
+            inimene.Nimi = "Mati";
+            inimene.Vanus = 65;
+            list.Add(inimene);
+            list.Add(new Inimene() { Nimi = "Kati" });
+
+            foreach (Inimene item in list)
+            {
+                Console.WriteLine(item.Nimi);
+            }*/
+
+
+
+
+            /*ArrayList arrayList= new ArrayList();
+            arrayList.Add("Esimene");
+            arrayList.Add("Teine");
+            arrayList.Add("Kolmas");
+            if (arrayList.Contains("Teine"))
+            {
+                Console.WriteLine("Sõna Teine on olemas");
+                Console.WriteLine("Teine asub kohal " + arrayList.IndexOf("Teine"));
+            }
+            else
+            {
+                Console.WriteLine("Otsitav sõna puudub");
+            }
+            Console.WriteLine("Kokku järjendis on "+arrayList.Count+" elemente");
+            arrayList.Insert(3, "Neljas");
+            arrayList.Insert(4, "Viies");
+            arrayList.Sort();
+            foreach (string item in arrayList)
+            {
+                Console.Write(item + ", ");
+            }
+            arrayList.RemoveAt(0);
+            arrayList.Remove("Viies");
+            arrayList.Clear();*/
+
+
+
+
+            /*string nimi = "Python";
             Alamprog.Tere(nimi);
             int a = 12;
             int b = 13;
             int vastus=Alamprog.Korruta(a, b);
             Console.WriteLine(vastus);
             Console.WriteLine(Alamprog.Korruta(5, 6));
-            Console.WriteLine(Alamprog.Kalkulaator(2, 3, '+'));
+            Console.WriteLine(Alamprog.Kalkulaator(2, 3, '+'));*/
             /*Random rnd= new Random();
             int N=rnd.Next(-100,100);
             int M=rnd.Next(-100,100);
