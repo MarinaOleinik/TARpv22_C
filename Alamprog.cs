@@ -10,7 +10,41 @@ namespace TARpv22_C
 {
     public class Alamprog
     {
-       
+
+        
+       public async Task Natuke_mangida(string Path)
+        {
+            await Task.Run(() =>
+            {
+                using (AudioFileReader audioFileReader = new AudioFileReader(Path))
+                using (IWavePlayer waveOutDevice = new WaveOutEvent())
+                {
+                    waveOutDevice.Init(audioFileReader);
+                    waveOutDevice.Play();
+                    while (waveOutDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        Thread.Sleep(50);
+                    }
+                }
+            });
+        }
+        public async Task Tagaplaanis_Mangida(string Path)
+        {
+            await Task.Run(() =>
+            {
+                using (AudioFileReader audioFileReader = new AudioFileReader(Path))
+                using (IWavePlayer waveOutDevice = new WaveOutEvent { DesiredLatency = 200 })
+                {
+                    waveOutDevice.Init(audioFileReader);
+                    waveOutDevice.Play();
+                    while (waveOutDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+            });
+        }
+
         public KeyValuePair<Dictionary<string, string>, Dictionary<string, string>> Minufunktion(string file)
         {
             Dictionary<string, string> dic1= new Dictionary<string, string>();

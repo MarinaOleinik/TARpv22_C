@@ -15,17 +15,28 @@ namespace TARpv22_C
     {       
         public static void Main(string[] args)
         {
-            SoundPlayer laul = new SoundPlayer("../../../naidis_laul.wav");
-            laul.Play();
+            //SoundPlayer laul = new SoundPlayer("../../../naidis_laul.wav");
+            //laul.Play();
 
 
 
-            IWavePlayer waveOutDevice = new WaveOutEvent();
-            AudioFileReader audioFileReader = new AudioFileReader("../../../Linnude_laul.mp3");
-            waveOutDevice.Init(audioFileReader);
-            waveOutDevice.Play();
+            //IWavePlayer waveOutDevice = new WaveOutEvent();
+            //AudioFileReader audioFileReader = new AudioFileReader("../../../Lindude_laul.mp3");
+            //waveOutDevice.Init(audioFileReader);
+            //waveOutDevice.Play();
 
-
+            Alamprog mäng = new Alamprog();
+            ConsoleKeyInfo nupp = new ConsoleKeyInfo();
+            _ = mäng.Tagaplaanis_Mangida("../../../people-and-trees.mp3");
+            while (true)
+            {
+                
+                nupp = Console.ReadKey();
+                if (nupp.Key==ConsoleKey.C)
+                {
+                    _ = mäng.Natuke_mangida("../../../Apple.mp3");
+                }
+            }
 
             /*
              waveOutDevice.Stop();
