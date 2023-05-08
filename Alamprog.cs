@@ -4,12 +4,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using NAudio.Wave;
 
 namespace TARpv22_C
 {
     public class Alamprog
     {
-
+       
         public KeyValuePair<Dictionary<string, string>, Dictionary<string, string>> Minufunktion(string file)
         {
             Dictionary<string, string> dic1= new Dictionary<string, string>();

@@ -2,80 +2,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using NAudio;
+using NAudio.Wave;
 
 namespace TARpv22_C
 {
     public class StartClass
-    {
+    {       
         public static void Main(string[] args)
         {
-            try
-            {
-                StreamWriter text = new StreamWriter(@"..\..\..\TextFile.txt", true);
-                Console.WriteLine("Sisesta maakonna nimetus: ");
-                string maakond = Console.ReadLine();
-                Console.WriteLine("Sisesta linna nimetus: ");
-                string linn = Console.ReadLine();
-                string lause = maakond+"-"+linn;
-                text.WriteLine(lause);
-                text.Close();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Viga failiga!");
-            }
-            try
-            {
-                StreamReader text = new StreamReader(@"..\..\..\TextFile.txt");
-                string laused=text.ReadToEnd();
-                text.Close();
-                Console.WriteLine("Failis on järgmine informatsion:\n");
-                Console.WriteLine(laused);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Viga failiga!");
-            }
+            SoundPlayer laul = new SoundPlayer("../../../naidis_laul.wav");
+            laul.Play();
 
-            List<string> list_failist = new List<string>();
-            try
-            {
-                foreach (string rida in File.ReadAllLines(@"..\..\..\TextFile.txt"))
-                {
-                    list_failist.Add(rida);
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Viga failiga!");
-            }
-            
-            string key="";
-            string value="";
-            Dictionary<string, string> maakond_linn = new Dictionary<string, string>();
-            foreach (var rida in list_failist)
-            {
-                key = rida.Split('-')[0];//Harjumaa
-                value = rida.Split('-')[1];//Tallinn
-                maakond_linn.Add(key, value);
-            }
-            foreach (KeyValuePair<string, string> keyValue in maakond_linn)
-            {
-                Console.WriteLine(keyValue.Key + " pealinn on " + keyValue.Value);
-            }
 
-            ConsoleKeyInfo nupp = new ConsoleKeyInfo();
-            do
-            {
-                Console.WriteLine("Vajuta Backspace");
-                nupp = Console.ReadKey();
-            } while (nupp.Key != ConsoleKey.Backspace);
-            
-            
-            
+
+            IWavePlayer waveOutDevice = new WaveOutEvent();
+            AudioFileReader audioFileReader = new AudioFileReader("../../../Linnude_laul.mp3");
+            waveOutDevice.Init(audioFileReader);
+            waveOutDevice.Play();
+
+
+
+            /*
+             waveOutDevice.Stop();
+             audioFileReader.Dispose();
+             waveOutDevice.Dispose();
+            */
+            //try
+            //{
+            //    StreamWriter text = new StreamWriter(@"..\..\..\TextFile.txt", true);
+            //    Console.WriteLine("Sisesta maakonna nimetus: ");
+            //    string maakond = Console.ReadLine();
+            //    Console.WriteLine("Sisesta linna nimetus: ");
+            //    string linn = Console.ReadLine();
+            //    string lause = maakond+"-"+linn;
+            //    text.WriteLine(lause);
+            //    text.Close();
+            //}
+            //catch (Exception)
+            //{
+            //    Console.WriteLine("Viga failiga!");
+            //}
+            //try
+            //{
+            //    StreamReader text = new StreamReader(@"..\..\..\TextFile.txt");
+            //    string laused=text.ReadToEnd();
+            //    text.Close();
+            //    Console.WriteLine("Failis on järgmine informatsion:\n");
+            //    Console.WriteLine(laused);
+            //}
+            //catch (Exception)
+            //{
+            //    Console.WriteLine("Viga failiga!");
+            //}
+
+            //List<string> list_failist = new List<string>();
+            //try
+            //{
+            //    foreach (string rida in File.ReadAllLines(@"..\..\..\TextFile.txt"))
+            //    {
+            //        list_failist.Add(rida);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    Console.WriteLine("Viga failiga!");
+            //}
+
+            //string key="";
+            //string value="";
+            //Dictionary<string, string> maakond_linn = new Dictionary<string, string>();
+            //foreach (var rida in list_failist)
+            //{
+            //    key = rida.Split('-')[0];//Harjumaa
+            //    value = rida.Split('-')[1];//Tallinn
+            //    maakond_linn.Add(key, value);
+            //}
+            //foreach (KeyValuePair<string, string> keyValue in maakond_linn)
+            //{
+            //    Console.WriteLine(keyValue.Key + " pealinn on " + keyValue.Value);
+            //}
+
+            //ConsoleKeyInfo nupp = new ConsoleKeyInfo();
+            //do
+            //{
+            //    Console.WriteLine("Vajuta Backspace");
+            //    nupp = Console.ReadKey();
+            //} while (nupp.Key != ConsoleKey.Backspace);
+
+
+
             /*Dictionary<int,string> dic = new Dictionary<int,string>(5);
             dic.Add(1, "üks");
             dic.Add(2, "kaks");
@@ -203,55 +223,57 @@ namespace TARpv22_C
             {
                 Console.WriteLine(item*item);
             }*/
-            /*string paev = "";
-            for (int i = 0; i < 10; i++)
-            {
-                int nr=rnd.Next(1,7);
-                Console.WriteLine(nr);
-                switch (nr)
-                {
-                    case 1: paev = "Esmaspäev"; break;
-                    case 2: paev = "Teisipäev"; break;
-                    case 3: paev = "Kolmapäev";break;
-                    case 4: paev = "Neljapäev"; break;
-                    case 5: paev = "Reede"; break;
-                    case 6: paev = "Laupäev"; break;
-                    case 7: paev = "Pühapäev"; break;
-                    default:
-                        paev = "Tundmatu päev";
-                        break;
-                }
-                Console.WriteLine(paev);
-            }
-            int j = 0;
-            while (j<10)
-            {
-                Console.WriteLine(paev);
-                j++;
-            }
-            Console.WriteLine(j);
-            do
-            {
-                Console.WriteLine(paev);
-                j--;
+            //Random rnd = new Random();
+            //string paev = "";
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    int nr=rnd.Next(1,7);
+            //    Console.WriteLine(nr);
+            //    switch (nr)
+            //    {
+            //        case 1: paev = "Esmaspäev"; break;
+            //        case 2: paev = "Teisipäev"; break;
+            //        case 3: paev = "Kolmapäev";break;
+            //        case 4: paev = "Neljapäev"; break;
+            //        case 5: paev = "Reede"; break;
+            //        case 6: paev = "Laupäev"; break;
+            //        case 7: paev = "Pühapäev"; break;
+            //        default:
+            //            paev = "Tundmatu päev";
+            //            break;
+            //    }
+            //    Console.WriteLine(paev);
+            //}
 
-            } while (j!=0);
-            Console.WriteLine(j);
-            int[] arvud= new int[10];
-            for (int i = 0; i < arvud.Length; i++)
-            {
-                arvud[i] = rnd.Next(-100, 100);
-            }
-            foreach (int arv in arvud)
-            {
-                if (arv<0)
-                {
-                    //Console.Beep();
-                }
-                Console.WriteLine(arv);
-            }
+            //int j = 0;
+            //while (j<10)
+            //{
+            //    Console.WriteLine(paev);
+            //    j++;
+            //}
+            //Console.WriteLine(j);
+            //do
+            //{
+            //    Console.WriteLine(paev);
+            //    j--;
 
-            */
+            //} while (j!=0);
+            //Console.WriteLine(j);
+            //int[] arvud= new int[10];
+            //for (int i = 0; i < arvud.Length; i++)
+            //{
+            //    arvud[i] = rnd.Next(-100, 100);
+            //}
+            //foreach (int arv in arvud)
+            //{
+            //    if (arv<0)
+            //    {
+            //        Console.Beep();
+            //    }
+            //    Console.WriteLine(arv);
+            //}
+
+
             /*Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
