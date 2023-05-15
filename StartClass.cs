@@ -24,6 +24,7 @@ namespace TARpv22_C
             //AudioFileReader audioFileReader = new AudioFileReader("../../../Lindude_laul.mp3");
             //waveOutDevice.Init(audioFileReader);
             //waveOutDevice.Play();
+            Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
 
             Alamprog mäng = new Alamprog();
             ConsoleKeyInfo nupp = new ConsoleKeyInfo();
@@ -34,6 +35,8 @@ namespace TARpv22_C
                 nupp = Console.ReadKey();
                 if (nupp.Key==ConsoleKey.C)
                 {
+                    Console.WriteLine("\x263A");
+                   
                     _ = mäng.Natuke_mangida("../../../Apple.mp3");
                 }
             }
